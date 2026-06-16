@@ -37,8 +37,7 @@ public class SpotifyAuthPlugin: CAPPlugin, CAPBridgedPlugin {
             return
         }
 
-        // Extract the scheme from the redirect URI for callback detection
-        guard let scheme = URL(string: redirectUri)?.scheme else {
+        guard let callbackScheme = URL(string: redirectUri)?.scheme else {
             call.reject("Invalid redirectUri scheme")
             return
         }
@@ -46,7 +45,7 @@ public class SpotifyAuthPlugin: CAPPlugin, CAPBridgedPlugin {
         DispatchQueue.main.async { [weak self] in
             let session = ASWebAuthenticationSession(
                 url: authURL,
-                callbackURLScheme: scheme
+                callbackURLScheme: callbackScheme
             ) { callbackURL, error in
                 self?.authSession = nil
 
@@ -68,10 +67,10 @@ public class SpotifyAuthPlugin: CAPPlugin, CAPBridgedPlugin {
 
                 let returnedState = components.queryItems?.first(where: { $0.name == "state" })?.value
 
-                var result = JSObject()
-                result["code"] = code
-                result["state"] = returnedState
-                call.resolve(result)
+                call.resolve([
+                    "code": code,
+                    "state": returnedState ?? ""
+                ])
             }
 
             session.presentationContextProvider = self
@@ -82,7 +81,6 @@ public class SpotifyAuthPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func logout(_ call: CAPPluginCall) {
-        // Clear cookies for Spotify domain
         let cookieStore = HTTPCookieStorage.shared
         if let cookies = cookieStore.cookies {
             for cookie in cookies where cookie.domain.contains("spotify.com") {
