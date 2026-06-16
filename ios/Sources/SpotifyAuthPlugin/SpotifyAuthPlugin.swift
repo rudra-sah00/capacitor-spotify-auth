@@ -74,7 +74,7 @@ public class SpotifyAuthPlugin: CAPPlugin, CAPBridgedPlugin {
             }
 
             session.presentationContextProvider = self
-            session.prefersEphemeralWebBrowserSession = false
+            session.prefersEphemeralWebBrowserSession = true
             self?.authSession = session
             session.start()
         }
