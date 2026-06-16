@@ -1,0 +1,60 @@
+{
+  "name": "capacitor-spotify-auth",
+  "version": "1.0.0",
+  "description": "Capacitor plugin for Spotify OAuth authentication. Uses native Spotify SDK on iOS/Android (app-to-app if Spotify installed), falls back to web OAuth.",
+  "main": "dist/plugin.cjs.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "unpkg": "dist/plugin.js",
+  "files": [
+    "android/src/main/",
+    "android/build.gradle",
+    "dist/",
+    "ios/Sources/",
+    "ios/Plugin.xcodeproj/",
+    "ios/Plugin/",
+    "CapacitorSpotifyAuth.podspec"
+  ],
+  "author": "Rudra Sahoo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rudra-sah00/capacitor-spotify-auth.git"
+  },
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "spotify",
+    "auth",
+    "oauth",
+    "native",
+    "ios",
+    "android"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.mjs",
+    "clean": "rimraf ./dist",
+    "docgen": "docgen --api SpotifyAuthPlugin --output-file docs/api.md || true",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/docgen": "^0.2.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "rimraf": "^6.0.0",
+    "rollup": "^4.0.0",
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^7.0.0"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
+  }
+}
