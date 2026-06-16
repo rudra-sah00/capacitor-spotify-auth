@@ -1,6 +1,6 @@
 {
   "name": "capacitor-spotify-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Capacitor plugin for Spotify OAuth authentication. Uses native Spotify SDK on iOS/Android (app-to-app if Spotify installed), falls back to web OAuth.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -13,6 +13,7 @@
     "ios/Sources/",
     "ios/Plugin.xcodeproj/",
     "ios/Plugin/",
+    "Package.swift",
     "CapacitorSpotifyAuth.podspec"
   ],
   "author": "Rudra Sahoo",
